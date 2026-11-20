@@ -1,0 +1,21 @@
+// C++ code
+//
+void setup()
+{
+  pinMode(6, OUTPUT);
+  pinMode(A0, INPUT);
+}
+
+void loop()
+{
+  int read = analogRead(A0);
+  if (read < 100)
+  {
+  digitalWrite(6, LOW);
+  }
+  
+  else
+  {
+  digitalWrite(6, HIGH);
+  }
+}
