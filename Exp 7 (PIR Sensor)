@@ -1,0 +1,28 @@
+// C++ code
+//
+void setup()
+{
+  pinMode(11, OUTPUT);
+  pinMode(9, OUTPUT);
+  pinMode(5, INPUT);
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  int mot = digitalRead(5);
+  
+  if (mot == HIGH)
+  {
+  Serial.println("Motion Detected");
+  digitalWrite(11, HIGH);
+  digitalWrite(11, HIGH);
+  }
+  
+  else
+  {
+    Serial.println("No Motion Detected");
+	digitalWrite(11, LOW);
+    digitalWrite(9, LOW);
+  }
+}
