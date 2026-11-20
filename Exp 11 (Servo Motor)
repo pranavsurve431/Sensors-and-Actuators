@@ -1,0 +1,18 @@
+// C++ code
+//
+#include<Servo.h>
+Servo myServo;
+int news;
+void setup()
+{
+  myServo.attach(7);
+  pinMode(A0, INPUT);
+}
+
+void loop()
+{
+  int read = analogRead(A0);
+  
+  news = map(read,1023,0,0,180);
+  myServo.write(news);
+}
