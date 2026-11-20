@@ -1,0 +1,78 @@
+
+const int trigPin = 5;
+const int echoPin = 4;
+
+const int redPin = 13;
+const int greenPin = 11;
+const int bluePin = 12;
+
+const int buzzer = 10;
+
+long duration;
+int distance;
+
+void setup() {
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+
+  pinMode(redPin, OUTPUT);
+  pinMode(greenPin, OUTPUT);
+  pinMode(bluePin, OUTPUT);
+  pinMode(buzzer, OUTPUT);
+
+  Serial.begin(9600);
+}
+
+void loop() {
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  duration = pulseIn(echoPin, HIGH, 30000);
+
+  if (duration == 0) {
+    distance = -1;
+  } else {
+    distance = duration * 0.034 / 2;
+  }
+
+  Serial.print("Distance: ");
+  Serial.print(distance);
+  Serial.println(" cm");
+
+  if (distance > 0 && distance < 89) 
+  {
+    // Red LED and short repeated beeps
+    setColor(255, 0, 0);
+
+    digitalWrite(buzzer, HIGH);
+    delay(10);
+  }
+  
+  else if (distance >= 89 && distance < 120) {
+    // Yellow LED and continuous buzzer
+    setColor(255, 255, 0);
+    digitalWrite(buzzer, HIGH);
+    delay(200);
+    digitalWrite(buzzer, LOW);
+    delay(200);
+  }
+  
+  else 
+  {
+    // Green LED and buzzer OFF
+    setColor(0, 255, 0);
+    digitalWrite(buzzer, LOW);
+  }
+
+  delay(50);
+}
+
+void setColor(int redValue, int greenValue, int blueValue) {
+  analogWrite(redPin, redValue);
+  analogWrite(greenPin, greenValue);
+  analogWrite(bluePin, blueValue);
+}
